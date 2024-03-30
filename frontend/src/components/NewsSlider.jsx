@@ -15,7 +15,7 @@ const NewsSlider = () => {
         try {
             const response = await axios.request(options);
            
-            console.log(response.data.articles);
+            // console.log(response.data.articles);
             let i=1;
 
                 let nextRes = response.data.articles[0];

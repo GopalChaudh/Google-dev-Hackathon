@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { user } from "../assets/data";
+import Cookies from "js-cookie";
 
 const initialState = {
-    user: JSON.parse(window?.localStorage.getItem('user')) || user,
+    user: Cookies.get("user") || null,
     edit: false,
 };
 
@@ -12,11 +12,11 @@ const userSlice = createSlice({
     reducers: {
         login(state, action) {
             state.user = action.payload;
-            window?.localStorage.setItem('user', JSON.stringify(action.payload));
+            Cookies.set("user", JSON.stringify(action.payload), { expires: 7 }); // Expires in 7 days
         },
         logout(state) {
-            state.user = {};
-            window?.localStorage.removeItem('user');
+            state.user = null;
+            Cookies.remove("user");
         },
         updateProfile(state, action) {
             state.edit = action.payload;
