@@ -20,7 +20,9 @@ const userSchema = new Schema({
         profilePic:{
             type:String,
             require:false
-        }
+        },
+        verified: { type: Boolean, default: false },
+  badges: [{ type: String }],
 },{timestamps:true})
 
 const userModel =  model('User',userSchema);
