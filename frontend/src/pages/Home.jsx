@@ -16,6 +16,7 @@ import { NoProfile } from "../assets";
 import { BsFiletypeGif, BsPersonFillAdd } from "react-icons/bs";
 import { BiImages, BiSolidVideo } from "react-icons/bi";
 import { useForm } from "react-hook-form";
+import NewsSlider from "../components/NewsSlider";
 
 const Home = () => {
     const { user, edit } = useSelector((state) => state.user);
@@ -165,8 +166,10 @@ const Home = () => {
                     {/* RIGJT */}
                     <div className='hidden w-1/4 h-full lg:flex flex-col gap-8 overflow-y-auto'>
                         {/* FRIEND REQUEST */}
-                        <div className='w-full bg-primary shadow-sm rounded-lg px-6 py-5'>
-                            <div className='flex items-center justify-between text-xl text-ascent-1 pb-2 border-b border-[#66666645]'>
+                        
+                        <div className='w-full shadow-sm rounded-lg px-6 py-5'>
+                            <NewsSlider  />
+                             {/*<div className='flex items-center justify-between text-xl text-ascent-1 pb-2 border-b border-[#66666645]'>
                                 <span> Friend Request</span>
                                 <span>{friendRequest?.length}</span>
                             </div>
@@ -205,7 +208,7 @@ const Home = () => {
                                         </div>
                                     </div>
                                 ))}
-                            </div>
+                            </div> */}
                         </div>
 
                         {/* SUGGESTED FRIENDS */}
