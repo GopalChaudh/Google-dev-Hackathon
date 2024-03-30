@@ -6,7 +6,7 @@ import {
     FriendsCard,
     Loading,
     PostCard,
-    ProfileCard,
+    WeatherCard,
     TextInput,
     TopBar,
 } from "../components";
@@ -42,7 +42,7 @@ const Home = () => {
                 <div className='w-full flex gap-2 lg:gap-4 pt-5 pb-10 h-full'>
                     {/* LEFT */}
                     <div className='hidden w-1/3 lg:w-1/4 h-full md:flex flex-col gap-6 overflow-y-auto'>
-                        <ProfileCard user={user} />
+                        <WeatherCard user={user} />
                         <FriendsCard friends={user?.friends} />
                     </div>
 

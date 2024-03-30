@@ -2,7 +2,7 @@ import TextInput from "./TextInput";
 import Loading from "./Loading";
 import CustomButton from "./CustomButton";
 import TopBar from "./TopBar";
-import ProfileCard from "./ProfileCard";
+import WeatherCard from "./WeatherCard";
 import FriendsCard from "./FriendsCard";
 import PostCard from "./PostCard";
 import EditProfile from "./EditProfile";
@@ -12,7 +12,7 @@ export {
     TextInput,
     CustomButton,
     TopBar,
-    ProfileCard,
+    WeatherCard,
     FriendsCard,
     PostCard,
     EditProfile,

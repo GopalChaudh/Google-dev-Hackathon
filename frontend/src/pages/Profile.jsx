@@ -4,7 +4,7 @@ import {
   FriendsCard,
   Loading,
   PostCard,
-  ProfileCard,
+  WeatherCard,
   TopBar,
 } from "../components";
 import { posts } from "../assets/data";
@@ -25,10 +25,10 @@ const Profile = () => {
         <div className='w-full flex gap-2 lg:gap-4 md:pl-4 pt-5 pb-10 h-full'>
           {/* LEFT */}
           <div className='hidden w-1/3 lg:w-1/4 md:flex flex-col gap-6 overflow-y-auto'>
-            <ProfileCard user={userInfo} />
+            <WeatherCard />
 
             <div className='block lg:hidden'>
-              <FriendsCard friends={userInfo?.friends} />
+              <FriendsCard />
             </div>
           </div>
 
