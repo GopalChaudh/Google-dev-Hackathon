@@ -1,6 +1,7 @@
 import { Outlet, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { Home, Login, NotFound, Profile, Register } from './pages';
 import { useSelector } from 'react-redux';
+import ChatBot from './pages/ChatBot';
 
 function Layout() {
     const { user } = useSelector((state) => state.user);
@@ -24,6 +25,7 @@ function App() {
                 </Route>
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
+                <Route path='/ChatBot' element={<ChatBot />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
         </div>

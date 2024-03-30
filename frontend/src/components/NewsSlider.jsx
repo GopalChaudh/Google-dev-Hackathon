@@ -5,30 +5,7 @@ const NewsSlider = () => {
     const [title,setTitle] = useState('');
     const [description,setDescription] = useState('');
     const [imageUrl,setimageUrl] = useState('');
-//     author
-// : 
-// "Science X"
-// content
-// : 
-// "by University of Arkansas System Division of Agriculture\r\nNaturally occurring polyphenols and proteins from pigmented waxy rice may help starch ingredients improve texture without any chemical modifi… [+6354 chars]"
-// description
-// : 
-// "Naturally occurring polyphenols and proteins from pigmented waxy rice may help starch ingredients improve texture without any chemical modification—a change some consumers may welcome, said Ya-Jane Wang, professor of carbohydrate chemistry."
-// publishedAt
-// : 
-// "2024-03-29T16:20:57Z"
-// source
-// : 
-// {id: null, name: 'Phys.Org'}
-// title
-// : 
-// "Researchers look to rice for 'clean label' ingredients"
-// url
-// : 
-// "https://phys.org/news/2024-03-rice-ingredients.html"
-// urlToImage
-// : 
-// "https://scx2.b-cdn.net/gfx/news/hires/2024/researchers-look-to-ri.jpg"
+
     const fetchData = async () => {
         const options = {
             method: 'GET',
@@ -53,7 +30,7 @@ const NewsSlider = () => {
                 setimageUrl(data.urlToImage);
                 i++;
 
-                },5000)
+                },10000);
             
         } catch (error) {
             console.error(error);
