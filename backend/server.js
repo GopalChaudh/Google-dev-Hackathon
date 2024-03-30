@@ -6,11 +6,12 @@ import cookieParser from 'cookie-parser';
 import pages_route from './Routes/pages.route.js';
 import posts_route from './Routes/posts.route.js';
 import user_route from './Routes/user.route.js';
+import cors from 'cors';
 // import messages_route from './Routes/messages.route.js';
 config();
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());

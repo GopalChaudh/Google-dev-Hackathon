@@ -7,6 +7,7 @@ import { AiOutlineInteraction } from "react-icons/ai";
 import { ImConnection } from "react-icons/im";
 import { CustomButton, Loading, TextInput } from "../components";
 import { BgImage } from "../assets";
+import axios from 'axios'; // Import Axios
 
 const Login = () => {
     const {
@@ -17,10 +18,21 @@ const Login = () => {
         mode: "onChange",
     });
 
-    const onSubmit = async (data) => { };
+    const [errMsg, setErrMsg] = useState(""); // Modify errMsg state to use setErrMsg function
+    const [isSubmitting, setIsSubmitting] = useState(false); // Modify isSubmitting state to use setIsSubmitting function
 
-    const [errMsg] = useState("");
-    const [isSubmitting] = useState(false);
+    const onSubmit = async (data) => {
+        setIsSubmitting(true); 
+        try {
+            const response = await axios.post('http://localhost:5000/login', data);
+            console.log(response.data); 
+        } catch (error) {
+            console.error(error);
+           
+            setErrMsg("Login failed. Please check your credentials.");
+        }
+        setIsSubmitting(false); 
+    };
     return (
         <div className='bg-bgColor w-full h-[100vh] flex items-center justify-center p-6'>
             <div className='w-full md:w-2/3 h-fit lg:h-full 2xl:h-5/6 py-8 lg:py-0 flex bg-primary rounded-xl overflow-hidden shadow-xl'>

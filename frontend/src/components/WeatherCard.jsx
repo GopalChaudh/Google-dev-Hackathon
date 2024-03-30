@@ -5,6 +5,7 @@ const WeatherCard = ({ user }) => {
     const [temprature,setTemprature] = useState('0');
     const [image,setImage] = useState('none');
     const [info,setInfo] = useState('');
+
     const fetchData = async () => {
         const options = {
             method: 'GET',

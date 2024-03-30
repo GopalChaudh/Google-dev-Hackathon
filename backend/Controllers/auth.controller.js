@@ -1,89 +1,92 @@
 import userModel from "../Models/user.model.js";
 import bcrypt from 'bcrypt'
 import genratetoken from "../utils/genrateToken.js";
-export  const signup = async(req,res)=>{
-//     {
-//         "fullName":"Gopal",
-// "userName":"Gopal",
-// "password":"123",
-//         "conformPass":"123",
-//         "gender":"male"
-// }
-    const {fullName,userName,password,conformPass,gender} = req.body;
-    try{ 
 
-        if(password != conformPass){
-            res.status(400).send({
-                message:"password Missmatch"
-            })
-        }
-        const user  = await userModel.findOne({userName});
-        if(user){
+export const signup = async (req, res) => {
+    const { fullName, userName, password, conformPass, gender } = req.body;
+    console.log(req.body);
+    try {
+        if (password != conformPass) {
             return res.status(400).send({
-                message:'user already exists with the username ! '
+                message: "Password mismatch"
             })
         }
-        // hash password 
-        const salt = await bcrypt.genSalt(10); // genrate salt
-        const hashPass = await bcrypt.hash(password,salt); // add salt to password
-        const boy = `https://avatar.iran.liara.run/public/boy?userName=${userName}`;
-        const girl = `https://avatar.iran.liara.run/public/boy?userName=${userName}`;
+
+        const user = await userModel.findOne({ userName });
+        if (user) {
+            return res.status(400).send({
+                message: 'User already exists with the username'
+            })
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashPass = await bcrypt.hash(password, salt);
+
+        const avatarUrl = gender === 'female' ?
+            `https://avatar.iran.liara.run/public/girl?userName=${userName}` :
+            `https://avatar.iran.liara.run/public/boy?userName=${userName}`;
+
         const newUser = await userModel.create({
             fullName,
             userName,
-            password:hashPass,
+            password: hashPass,
             gender,
-            profilePic: (gender === 'female' ? girl : boy)
-        })
-        await newUser.save();
-        genratetoken(newUser._id,res);
-    
-        res.send({...newUser})
-    }catch(err){
-        console.log(err);
-        res.send({
-            message:'error in signup controller'
-        })
-    }
-}
-export const login = async(req,res)=>{
-    // {
-    //     "userName":"Gopal",
-    //     "password":"123"	
-    // }
-   try{
-     const {userName,password} = req.body;
-    const checkuser =await userModel.findOne({
-        userName
-    });
-    const isPaswordCorrect = await bcrypt.compare(password,checkuser?.password || "");
+            profilePic: avatarUrl
+        });
 
-    if(!isPaswordCorrect){
-        return res.status(400).send({
-            message:"userName or password is incorrect"
-        })
-    }
-    genratetoken(checkuser._id,res);
-    res.status(200).send({
-        message:"login successfull",
-    })
-    }catch(err){
-        console.log(err);
-        res.send({
-            message:'error in signup controller'
-        })
+        genratetoken(newUser._id, res);
+
+        res.status(201).send(newUser);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({
+            message: 'Error in signup controller'
+        });
     }
 }
-export const logout = (req,res)=>{
-    try{
-        res.cookie("jwt","",{maxAge:0});
+
+export const login = async (req, res) => {
+    try {
+        const { userName, password } = req.body;
+        const user = await userModel.findOne({ userName });
+
+        if (!user) {
+            return res.status(400).send({
+                message: "Username or password is incorrect"
+            });
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordCorrect) {
+            return res.status(400).send({
+                message: "Username or password is incorrect"
+            });
+        }
+
+        genratetoken(user._id, res);
+
         res.status(200).send({
-            message:'logout successFully'
-        })
-}catch(err){
-    console.log(err);
-    res.send({
-        message:'error in logout controller'
-    })
+            message: "Login successful"
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({
+            message: 'Error in login controller'
+        });
+    }
 }
+
+export const logout = (req, res) => {
+    try {
+        res.clearCookie("jwt");
+        res.status(200).send({
+            message: 'Logout successful'
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({
+            message: 'Error in logout controller'
+        });
+    }
 }

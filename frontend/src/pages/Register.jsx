@@ -7,6 +7,7 @@ import { AiOutlineInteraction } from "react-icons/ai";
 import { ImConnection } from "react-icons/im";
 import { CustomButton, Loading, TextInput } from "../components";
 import { BgImage } from "../assets";
+import axios from 'axios'; // Import Axios
 
 const Register = () => {
     const {
@@ -18,10 +19,23 @@ const Register = () => {
         mode: "onChange",
     });
 
-    const onSubmit = async (data) => { };
+    const [errMsg, setErrMsg] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const [errMsg] = useState("");
-    const [isSubmitting] = useState(false);
+    const onSubmit = async (data) => {
+        setIsSubmitting(true);
+        try {
+            console.log("data",data);
+            const response = await axios.post('http://localhost:5000/api/auth/signup', data); // Send POST request to your backend
+            console.log(response.data); // Log the response from the backend
+            // Handle successful registration, e.g., redirect user to login page
+        } catch (error) {
+            console.error(error);
+            // If there's an error, update the errMsg state to display error message to the user
+            setErrMsg("Registration failed. Please try again.");
+        }
+        setIsSubmitting(false);
+    };
 
     return (
         <div className='bg-bgColor w-full h-[100vh] flex items-center justify-center p-6'>
@@ -47,40 +61,39 @@ const Register = () => {
                     >
                         <div className='w-full flex flex-col lg:flex-row gap-1 md:gap-2'>
                             <TextInput
-                                name='firstName'
+                                name='fullName'
                                 label='First Name'
                                 placeholder='First Name'
                                 type='text'
                                 styles='w-full'
-                                register={register("firstName", {
-                                    required: "First Name is required!",
+                                register={register("fullName", {
+                                    required: "full Name is required!",
                                 })}
                                 error={errors.firstName ? errors.firstName?.message : ""}
                             />
+                            <TextInput
+                                name='gender'
+                                label='gender'
+                                placeholder='male/female'
+                                type='text'
+                                styles='w-full'
+                                register={register("gender", {
+                                    required: "gender is required!",
+                                })}
+                            />
 
                             <TextInput
-                                label='Last Name'
-                                placeholder='Last Name'
-                                type='lastName'
+                                 name = "userName"
+                                label='userName'
+                                placeholder='userName'
+                                type='userName'
                                 styles='w-full'
-                                register={register("lastName", {
-                                    required: "Last Name do no match",
+                                register={register("userName", {
+                                    required: "userName is required",
                                 })}
                                 error={errors.lastName ? errors.lastName?.message : ""}
                             />
                         </div>
-
-                        <TextInput
-                            name='email'
-                            placeholder='email@example.com'
-                            label='Email Address'
-                            type='email'
-                            register={register("email", {
-                                required: "Email Address is required",
-                            })}
-                            styles='w-full'
-                            error={errors.email ? errors.email.message : ""}
-                        />
 
                         <div className='w-full flex flex-col lg:flex-row gap-1 md:gap-2'>
                             <TextInput
@@ -96,11 +109,12 @@ const Register = () => {
                             />
 
                             <TextInput
+                                name="conformPass"
                                 label='Confirm Password'
                                 placeholder='Password'
                                 type='password'
                                 styles='w-full'
-                                register={register("cPassword", {
+                                register={register("conformPass", {
                                     validate: (value) => {
                                         const { password } = getValues();
 
