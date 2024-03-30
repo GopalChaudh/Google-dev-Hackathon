@@ -9,6 +9,7 @@ import { BsMoon, BsSunFill } from "react-icons/bs";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { SetTheme } from "../redux/theme";
 import { Logout } from "../redux/userSlice";
+import { FaRobot } from "react-icons/fa6";
 
 const TopBar = () => {
     const { theme } = useSelector((state) => state.theme);
@@ -55,6 +56,10 @@ const TopBar = () => {
 
             {/* ICONS */}
             <div className='flex gap-4 items-center text-ascent-1 text-md md:text-xl'>
+                <Link to="/chatbot">
+
+                <FaRobot />
+                </Link>
                 <button onClick={() => handleTheme()}>
                     {theme ? <BsMoon /> : <BsSunFill />}
                 </button>
