@@ -1,4 +1,4 @@
-import {Schema,model} from "mongoose";
+import mongoose,{ Schema,model} from "mongoose";
 
 const userSchema = new Schema({
         fullName:{
@@ -13,6 +13,18 @@ const userSchema = new Schema({
             type:String,
             require:true
         },
+        follower:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'User'
+        }],
+        following:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'User'
+        }],
+        saved:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Post'
+        }],
         gender:{
             type:String,
             require:true

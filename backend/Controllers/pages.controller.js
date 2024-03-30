@@ -101,3 +101,37 @@ export const Addfollowers = async (req, res, next) => {
     }
 };
 
+
+export const RemoveFollower = async (req, res, next) => {
+    try {
+        const { id, followerId } = req.body;
+
+        // Find the page by its id
+        const page = await pagemodel.findById(id);
+        if (!page) {
+            return res.status(404).send({
+                message: 'Page not found!'
+            });
+        }
+
+        // Check if the follower exists in the followers array
+        if (!page.followers.includes(followerId)) {
+            return res.status(404).send({
+                message: 'Follower not found in the page!'
+            });
+        }
+
+        // Remove the follower from the followers array
+        const updatedPage = await pagemodel.findByIdAndUpdate(id, {
+            $pull: { followers: followerId }
+        }, { new: true });
+
+        res.status(200).send({
+            message: 'Follower removed from the page successfully',
+            updatedPage: updatedPage
+        });
+    } catch (err) {
+        console.log(err);
+        next(err); // Pass the error to the error handling middleware
+    }
+};
