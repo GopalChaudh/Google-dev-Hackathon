@@ -4,10 +4,11 @@ import { useSelector } from 'react-redux';
 
 function Layout() {
     const { user } = useSelector((state) => state.user);
+    console.log('Layout');
     console.log(user);
     const location = useLocation();
 
-    return (user?.token) ? (
+    return (user) ? (
         <Outlet />
     ) : (
         <Navigate to='/login' state={{ from: location }} replace />

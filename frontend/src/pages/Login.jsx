@@ -1,15 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { TbSocial } from "react-icons/tb";
+import { RiPlantFill } from "react-icons/ri";
 import { BsShare } from "react-icons/bs";
 import { AiOutlineInteraction } from "react-icons/ai";
 import { ImConnection } from "react-icons/im";
 import { CustomButton, Loading, TextInput } from "../components";
 import { BgImage } from "../assets";
 import axios from 'axios'; // Import Axios
+import { useDispatch } from "react-redux";
+import { Login as login} from "../redux/userSlice";
 
 const Login = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const {
         register,
         handleSubmit,
@@ -18,21 +23,26 @@ const Login = () => {
         mode: "onChange",
     });
 
-    const [errMsg, setErrMsg] = useState(""); // Modify errMsg state to use setErrMsg function
-    const [isSubmitting, setIsSubmitting] = useState(false); // Modify isSubmitting state to use setIsSubmitting function
+    const [errMsg, setErrMsg] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const onSubmit = async (data) => {
-        setIsSubmitting(true); 
+        setIsSubmitting(true);
         try {
-            const response = await axios.post('http://localhost:5000/login', data);
-            console.log(response.data); 
+            const response = await axios.post('http://localhost:5000/api/auth/login', data);
+            if (response.data.message === 'Login successful') {
+                dispatch(login(response.data.user));
+                navigate('/');
+            } else {
+                setErrMsg(response.data.message);
+            }
         } catch (error) {
             console.error(error);
-           
             setErrMsg("Login failed. Please check your credentials.");
         }
-        setIsSubmitting(false); 
+        setIsSubmitting(false);
     };
+
     return (
         <div className='bg-bgColor w-full h-[100vh] flex items-center justify-center p-6'>
             <div className='w-full md:w-2/3 h-fit lg:h-full 2xl:h-5/6 py-8 lg:py-0 flex bg-primary rounded-xl overflow-hidden shadow-xl'>
@@ -40,10 +50,10 @@ const Login = () => {
                 <div className='w-full lg:w-1/2 h-full p-10 2xl:px-20 flex flex-col justify-center '>
                     <div className='w-full flex gap-2 items-center mb-6'>
                         <div className='p-2 bg-[#065ad8] rounded text-white'>
-                            <TbSocial />
+                            <RiPlantFill />
                         </div>
                         <span className='text-2xl text-[#065ad8] font-semibold'>
-                            ShareFun
+                            Plantu
                         </span>
                     </div>
 
@@ -57,16 +67,16 @@ const Login = () => {
                         onSubmit={handleSubmit(onSubmit)}
                     >
                         <TextInput
-                            name='email'
-                            placeholder='email@example.com'
-                            label='Email Address'
-                            type='email'
-                            register={register("email", {
-                                required: "Email Address is required",
+                            name='userName'
+                            placeholder='John Doe'
+                            label='User Name'
+                            type='text'
+                            register={register("userName", {
+                                required: "User Name is required",
                             })}
                             styles='w-full rounded-full'
                             labelStyle='ml-2'
-                            error={errors.email ? errors.email.message : ""}
+                            error={errors.name ? errors.name.message : ""}
                         />
 
                         <TextInput
@@ -89,15 +99,8 @@ const Login = () => {
                             Forgot Password ?
                         </Link>
 
-                        {errMsg?.message && (
-                            <span
-                                className={`text-sm ${errMsg?.status === "failed"
-                                        ? "text-[#f64949fe]"
-                                        : "text-[#2ba150fe]"
-                                    } mt-0.5`}
-                            >
-                                {errMsg?.message}
-                            </span>
+                        {errMsg && (
+                            <span className='text-sm text-red-500 mt-1'>{errMsg}</span>
                         )}
 
                         {isSubmitting ? (
@@ -148,11 +151,8 @@ const Login = () => {
 
                     <div className='mt-16 text-center'>
                         <p className='text-white text-base'>
-                            Connect with friedns & have share for fun
+                            Connect with friends & have fun sharing memories.
                         </p>
-                        <span className='text-sm text-white/80'>
-                            Share memories with friends and the world.
-                        </span>
                     </div>
                 </div>
             </div>
