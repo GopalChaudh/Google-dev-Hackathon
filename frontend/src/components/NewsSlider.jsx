@@ -39,10 +39,22 @@ const NewsSlider = () => {
             const response = await axios.request(options);
            
             console.log(response.data.articles);
-            const data = response.data.articles[0]
-            setTitle(data.title);
-            setDescription(data.description);
-            setimageUrl(data.urlToImage)
+            let i=1;
+
+                let nextRes = response.data.articles[0];
+                setInterval(()=>{
+                    if(i >= response.data.articles.length){
+                        i=0;
+                    }
+                const data = nextRes;
+                nextRes = response.data.articles[i];
+                setTitle(data.title);
+                setDescription(data.description);
+                setimageUrl(data.urlToImage);
+                i++;
+
+                },5000)
+            
         } catch (error) {
             console.error(error);
         }
