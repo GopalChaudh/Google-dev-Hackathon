@@ -34,13 +34,14 @@ export const signup = async (req, res) => {
             profilePic: avatarUrl
         });
 
-        genratetoken(newUser._id, res);
+        const data = genratetoken(newUser._id, res);
 
         res.status(201).send(newUser);
     } catch (err) {
         console.error(err);
         res.status(500).send({
-            message: 'Error in signup controller'
+            message: 'Error in signup controller',
+            user: data
         });
     }
 }
@@ -64,11 +65,12 @@ export const login = async (req, res) => {
             });
         }
 
-        genratetoken(user._id, res);
+        const token = genratetoken(user._id, res);
+        console.log(token);
 
         res.status(200).send({
             message: "Login successful",
-            user: user
+            user: token
         });
     } catch (err) {
         console.error(err);

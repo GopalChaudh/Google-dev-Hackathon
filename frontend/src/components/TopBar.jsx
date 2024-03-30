@@ -1,5 +1,5 @@
 import React from "react";
-import { TbSocial } from "react-icons/tb";
+import { RiPlantFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import TextInput from "./TextInput";
@@ -30,10 +30,10 @@ const TopBar = () => {
         <div className='topbar w-full flex items-center justify-between py-3 md:py-6 px-4 bg-primary'>
             <Link to='/' className='flex gap-2 items-center'>
                 <div className='p-1 md:p-2 bg-[#065ad8] rounded text-white'>
-                    <TbSocial />
+                    <RiPlantFill />
                 </div>
                 <span className='text-xl md:text-2xl text-[#065ad8] font-semibold'>
-                    ShareFun
+                    AgriHelp
                 </span>
             </Link>
 
