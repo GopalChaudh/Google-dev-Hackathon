@@ -67,7 +67,8 @@ export const login = async (req, res) => {
         genratetoken(user._id, res);
 
         res.status(200).send({
-            message: "Login successful"
+            message: "Login successful",
+            user: user
         });
     } catch (err) {
         console.error(err);

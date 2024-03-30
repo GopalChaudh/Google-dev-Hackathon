@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { TbSocial } from "react-icons/tb";
+import { RiPlantFill } from "react-icons/ri";
 import { BsShare } from "react-icons/bs";
 import { AiOutlineInteraction } from "react-icons/ai";
 import { ImConnection } from "react-icons/im";
 import { CustomButton, Loading, TextInput } from "../components";
 import { BgImage } from "../assets";
 import axios from 'axios'; // Import Axios
+import { Login } from "../redux/userSlice";
+import { dispatch } from "../redux/store";
 
 const Register = () => {
     const {
@@ -29,6 +31,8 @@ const Register = () => {
             const response = await axios.post('http://localhost:5000/api/auth/signup', data); // Send POST request to your backend
             console.log(response.data); // Log the response from the backend
             // Handle successful registration, e.g., redirect user to login page
+            dispatch(Login(response.data));
+            window.location.href = "/login";
         } catch (error) {
             console.error(error);
             // If there's an error, update the errMsg state to display error message to the user
@@ -44,10 +48,10 @@ const Register = () => {
                 <div className='w-full lg:w-1/2 h-full p-10 2xl:px-20 flex flex-col justify-center '>
                     <div className='w-full flex gap-2 items-center mb-6'>
                         <div className='p-2 bg-[#065ad8] rounded text-white'>
-                            <TbSocial />
+                            <RiPlantFill />
                         </div>
                         <span className='text-2xl text-[#065ad8] ' font-semibold>
-                            ShareFun
+                            Plantu
                         </span>
                     </div>
 
