@@ -35,7 +35,7 @@ const WeatherCard = ({ user }) => {
 
     return (
         <div className='w-full  bg-primary flex flex-col items-center shadow-sm rounded-xl px-6 py-4 '>
-            <div className="w-full h-full items-center flex flex-col md:flex-row md:justify-center">
+            <div className="w-full h-full bg-primary items-center flex flex-col md:flex-row md:justify-center">
                 <div className="w-full transition duration-500 ease-in-out transform bg-primary rounded-lg hover:scale-105 cursor-pointer flex flex-col justify-center items-center text-center p-6">
                     <div className="text-md font-bold flex flex-col text-white"><span className="uppercase">Today</span></div>
                     <div className="w-32 h-full flex items-center justify-center">

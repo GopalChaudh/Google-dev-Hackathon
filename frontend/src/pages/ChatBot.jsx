@@ -11,16 +11,19 @@ export default function ChatBot() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer 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` // Use provided API key
+                'Authorization': `Bearer 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`, // Use provided API key
+                'model': 'gpt-3.5-turbo',
             },
             body: JSON.stringify({
                 prompt: message,
                 max_tokens: 50 // Maximum length of the completion
             })
+            
         };
 
-        fetch('https://api.openai.com/v1/completions', requestOptions)
+        fetch('http://localhost:5000', requestOptions)
             .then(response => {
+                console.log(response.json());
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
