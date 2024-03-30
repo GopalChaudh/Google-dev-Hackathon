@@ -5,6 +5,7 @@ import ConnectToMongoDB from './DB/connectToMongoDB.js';
 import cookieParser from 'cookie-parser';
 import pages_route from './Routes/pages.route.js';
 import posts_route from './Routes/posts.route.js';
+import user_route from './Routes/user.route.js';
 // import messages_route from './Routes/messages.route.js';
 config();
 const app = express();
@@ -16,6 +17,7 @@ app.use(cookieParser());
 app.use('/api/auth',auth_route);
 app.use('/api/page',pages_route);
 app.use('/api/post',posts_route);
+app.use('/api/add',user_route);
 
 app.get('/',(req,res)=>{
     res.send('hi from server !');
