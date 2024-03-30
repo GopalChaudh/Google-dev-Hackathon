@@ -14,7 +14,6 @@ app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());
 app.use('/api/auth',auth_route);
 app.use('/api/page',pages_route);
-// app.use('/api/messages',messages_route);
 
 app.get('/',(req,res)=>{
     res.send('hi from server !');

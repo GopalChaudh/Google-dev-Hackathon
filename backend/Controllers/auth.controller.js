@@ -2,6 +2,13 @@ import userModel from "../Models/user.model.js";
 import bcrypt from 'bcrypt'
 import genratetoken from "../utils/genrateToken.js";
 export  const signup = async(req,res)=>{
+//     {
+//         "fullName":"Gopal",
+// "userName":"Gopal",
+// "password":"123",
+//         "conformPass":"123",
+//         "gender":"male"
+// }
     const {fullName,userName,password,conformPass,gender} = req.body;
     try{ 
 
@@ -40,12 +47,15 @@ export  const signup = async(req,res)=>{
     }
 }
 export const login = async(req,res)=>{
+    // {
+    //     "userName":"Gopal",
+    //     "password":"123"	
+    // }
    try{
      const {userName,password} = req.body;
     const checkuser =await userModel.findOne({
         userName
     });
-
     const isPaswordCorrect = await bcrypt.compare(password,checkuser?.password || "");
 
     if(!isPaswordCorrect){

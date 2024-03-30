@@ -6,7 +6,7 @@ const pageSchema = new mongoose.Schema({
     description: { type: String },
     followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
-  },{timestamps:true});
+},{timestamps:true});
 
 const pagemodel = mongoose.model('Pages',pageSchema);
 export default pagemodel;
