@@ -9,7 +9,7 @@ import { CustomButton, Loading, TextInput } from "../components";
 import { BgImage } from "../assets";
 import axios from 'axios'; // Import Axios
 import { useDispatch } from "react-redux";
-import { Login as login} from "../redux/userSlice";
+import { Login as login } from "../redux/userSlice";
 
 const Login = () => {
     const navigate = useNavigate();

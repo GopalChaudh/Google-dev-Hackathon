@@ -7,28 +7,27 @@ import CustomButton from "./CustomButton";
 import { useForm } from "react-hook-form";
 import { BsMoon, BsSunFill } from "react-icons/bs";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { SetTheme } from "../redux/theme";
+import { setThemeAction as SetTheme } from "../redux/theme";
 import { Logout } from "../redux/userSlice";
 import { FaRobot } from "react-icons/fa6";
 
 const TopBar = () => {
     const { theme } = useSelector((state) => state.theme);
     const dispatch = useDispatch();
-    const {
-        register,
-        handleSubmit,
-    } = useForm();
+    const { register, handleSubmit } = useForm();
 
     const handleTheme = () => {
         const themeValue = theme === "light" ? "dark" : "light";
-
         dispatch(SetTheme(themeValue));
     };
 
-    const handleSearch = async (data) => { };
+    const handleSearch = async (data) => {
+        // Handle search functionality
+    };
 
     return (
         <div className='topbar w-full flex items-center justify-between py-3 md:py-6 px-4 bg-primary'>
+            {/* Logo and Brand */}
             <Link to='/' className='flex gap-2 items-center'>
                 <div className='p-1 md:p-2 bg-[#065ad8] rounded text-white'>
                     <RiPlantFill />
@@ -38,13 +37,14 @@ const TopBar = () => {
                 </span>
             </Link>
 
+            {/* Search Form */}
             <form
                 className='hidden md:flex items-center justify-center'
                 onSubmit={handleSubmit(handleSearch)}
             >
                 <TextInput
                     placeholder='Search...'
-                    styles='w-[18rem] lg:w-[38rem]  rounded-l-full py-3 '
+                    styles='w-[18rem] lg:w-[38rem] rounded-l-full py-3'
                     register={register("search")}
                 />
                 <CustomButton
@@ -54,19 +54,24 @@ const TopBar = () => {
                 />
             </form>
 
-            {/* ICONS */}
+            {/* Icons */}
             <div className='flex gap-4 items-center text-ascent-1 text-md md:text-xl'>
+                {/* Chatbot Link */}
                 <Link to="/chatbot">
-
-                <FaRobot />
+                    <FaRobot />
                 </Link>
-                <button onClick={() => handleTheme()}>
-                    {theme ? <BsMoon /> : <BsSunFill />}
+
+                {/* Theme Switcher */}
+                <button onClick={handleTheme}>
+                    {theme === "light" ? <BsMoon /> : <BsSunFill />}
                 </button>
+
+                {/* Notifications Icon */}
                 <div className='hidden lg:flex'>
                     <IoMdNotificationsOutline />
                 </div>
 
+                {/* Logout Button */}
                 <div>
                     <CustomButton
                         onClick={() => dispatch(Logout())}

@@ -1,13 +1,11 @@
-const CustomButton = ({ title, containerStyles, iconRight, type, onClick }) => {
+const CustomButton = ({ styles, type, title, onClick }) => {
     return (
         <button
             onClick={onClick}
             type={type || "button"}
-            className={`inline-flex items-center text-base ${containerStyles}`}
+            className={`text-base inline-flex items-center ${styles}`}
         >
             {title}
-
-            {iconRight && <div className='ml-2'>{iconRight}</div>}
         </button>
     );
 };

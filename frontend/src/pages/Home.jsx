@@ -10,7 +10,7 @@ import {
     TextInput,
     TopBar,
 } from "../components";
-import { suggest, requests, posts } from "../assets/data";
+import { suggest, posts } from "../assets/data";
 import { Link } from "react-router-dom";
 import { NoProfile } from "../assets";
 import { BsFiletypeGif, BsPersonFillAdd } from "react-icons/bs";
@@ -20,7 +20,6 @@ import NewsSlider from "../components/NewsSlider";
 
 const Home = () => {
     const { user, edit } = useSelector((state) => state.user);
-    const [friendRequest] = useState(requests);
     const [suggestedFriends] = useState(suggest);
     const [errMsg] = useState("");
     const [setFile] = useState(null);
@@ -73,8 +72,8 @@ const Home = () => {
                                 <span
                                     role='alert'
                                     className={`text-sm ${errMsg?.status === "failed"
-                                            ? "text-[#f64949fe]"
-                                            : "text-[#2ba150fe]"
+                                        ? "text-[#f64949fe]"
+                                        : "text-[#2ba150fe]"
                                         } mt-0.5`}
                                 >
                                     {errMsg?.message}
@@ -163,13 +162,13 @@ const Home = () => {
                         )}
                     </div>
 
-                    {/* RIGJT */}
+                    {/* RIGHT */}
                     <div className='hidden w-1/4 h-full lg:flex flex-col gap-8 overflow-y-auto'>
                         {/* FRIEND REQUEST */}
-                        
+
                         <div className='w-full shadow-sm rounded-lg px-6 py-5'>
-                            <NewsSlider  />
-                             {/*<div className='flex items-center justify-between text-xl text-ascent-1 pb-2 border-b border-[#66666645]'>
+                            <NewsSlider />
+                            {/*<div className='flex items-center justify-between text-xl text-ascent-1 pb-2 border-b border-[#66666645]'>
                                 <span> Friend Request</span>
                                 <span>{friendRequest?.length}</span>
                             </div>
